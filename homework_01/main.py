@@ -12,8 +12,6 @@ db_file = Path('./homework_01/data/database.csv')
 #
 def open_db():
     phonebook = []
-
-
     with open(db_file, 'r', encoding='UTF-8') as data_file:
         csv_reader = csv.reader(data_file, delimiter=';')
         for row in csv_reader:
@@ -106,7 +104,6 @@ for i in range(8):
 #
 # Выбор пунктов меню
 #
-
 def input_menu_item(): # Ввод пункта меню
     while True:
         menu = input('>>>')
@@ -121,7 +118,6 @@ def input_menu_item(): # Ввод пункта меню
 #
 # Вывод меню
 #
-print(menu_content)
 print('''
       Это телефонный справочник\n
       для навигации необходимо использовать цифры:\n
