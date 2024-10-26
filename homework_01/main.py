@@ -1,12 +1,15 @@
 import csv
 from pathlib import Path
 import os
+from string import ascii_lowercase
 #
+db_file = Path('./homework_01/data/database.csv')
+
 #Открытие и сохранение
 #
 def open_db():
     phonebook = []
-    db_file = Path('./homework_01/data/database.csv')
+
     # print(os.path.isfile(db_file))
     with open(db_file, 'r', encoding='UTF-8') as data_file:
         csv_reader = csv.reader(data_file, delimiter=';')
@@ -16,10 +19,24 @@ def open_db():
     # print(phonebook)
     return phonebook
 
-def save_db():
+def save_db(phonebook):
+    if phonebook == []:
+        print('''
+               Адресная книга не загружена или пуста!!!
+               Все дынные будут удалены!!!
+               Вы хотите подолжить?
+               ''')
+        answer = input('Введите Y- для продолжения и любой другой символ для отмены: ')
+        if answer.lower == 'y':
+            print('Данные стираюся!!!')
+            with open(db_file, 'w', encoding='UTF-8') as data_file:
+                csv_writer = csv.writer(data_file, delimiter=';',lineterminator='\n')
+                csv_writer.writerows(phonebook)
+    print('Адресная книга сохранена!')
     with open(db_file, 'w', encoding='UTF-8') as data_file:
-        csv_writer = csv.writer(data_file, delimiter=';',lineterminator='\n')
-        csv_writer.writerows(data_file)
+                csv_writer = csv.writer(data_file, delimiter=';',lineterminator='\n')
+                csv_writer.writerows(phonebook) 
+
 
 #
 #Навинация
@@ -132,7 +149,7 @@ while True:
             phonebook = open_db()
             # print(phonebook)
     elif menu_item == 2:
-            save_db()
+            save_db(phonebook)
     elif menu_item == 3:
             if phonebook == []:
                 print('Справочник пуст! Закрузине справочник или внесите контакты.')
