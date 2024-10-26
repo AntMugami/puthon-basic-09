@@ -13,7 +13,7 @@ db_file = Path('./homework_01/data/database.csv')
 def open_db():
     phonebook = []
 
-    # print(os.path.isfile(db_file))
+
     with open(db_file, 'r', encoding='UTF-8') as data_file:
         csv_reader = csv.reader(data_file, delimiter=';')
         for row in csv_reader:
@@ -73,7 +73,7 @@ def find_contact(phone_list):
     return matched_contacts
 def chage_contact(phone_list):
     id_for_change = input('Введите ID контакта для изменения: ')
-    # print(type(phone_list))
+ 
     try:
         id_for_change = int(id_for_change)
         name = input('Введите имя: ')
@@ -90,7 +90,6 @@ def chage_contact(phone_list):
 
 def delete_contact(phone_list):
     id_for_delete = input('Введите ID контакта для удаления: ')
-    # print(type(phone_list))
     try:
         id_for_delete = int(id_for_delete)
         deleted_item = phone_list.pop(id_for_delete)
@@ -118,7 +117,7 @@ def input_menu_item(): # Ввод пункта меню
             menu_item = int(menu)
             print('Выбран пункт', menu_item)
             return menu_item
-    # return menu_item
+
 #
 # Вывод меню
 #
@@ -181,11 +180,3 @@ while True:
     else:
             print('Выбранного пункта не существует! Повторите ввод, используйте цифры от 0 до 7')
 
-
-
-# print(open_db())
-# print(open_db()[0][0])
-# print(open_db()[0][1])
-# print(open_db()[2][3])
-# print(open_db()[1][2])
-# print(open_db()[3][3])
