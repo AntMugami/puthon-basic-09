@@ -63,8 +63,14 @@ def find_contact(phone_list):
     matched_contacts = []
     search_string = input('Что будем искать? Введите данные: ')
     for items in phone_list:
-         
-
+        id, name, phone, detailes = items
+        if re.search(search_string.lower(), name.lower()):
+            match_item = [id, name, phone, detailes]
+            matched_contacts.append(match_item)
+        if re.search(search_string.lower(), phone.lower()):
+            match_item = [id, name, phone, detailes]
+            matched_contacts.append(match_item)
+    return matched_contacts
 def chage_contact(phone_list):
     id_for_change = input('Введите ID контакта для изменения: ')
     # print(type(phone_list))
@@ -114,27 +120,6 @@ def input_menu_item(): # Ввод пункта меню
             return menu_item
     # return menu_item
 #
-# Анализ навигвции по введенным пунктам
-#  
-# def analys_choisen_item(menu_item, phonebook):
-#     phone_list = phonebook
-
-#     if menu_item == 5:
-#         find_contact(phone_list)
-#         # print('Выберите новый пункт меню:\n')
-#         # menu_item = input_menu_item()
-#     if menu_item == 6:
-#         chage_contact(phone_list)
-        # print('Выберите новый пункт меню:\n')
-        # menu_item = input_menu_item()
-    # if menu_item == 7:
-    #     delete_contact(phone_list)
-        # print('Выберите новый пункт меню:\n')
-        # menu_item = input_menu_item()
-    # elif menu_item == 0:
-    #     print('Работа завершена! Пока!\n')
-
-#
 # Вывод меню
 #
 print(menu_content)
@@ -178,8 +163,15 @@ while True:
             continue
     elif menu_item == 5:
             contacts_match = find_contact(phonebook)
-            print(f'Найдены следующие контакты:\n{contacts_match}',sep='\n')
-            continue
+            if contacts_match == []:
+                print('Контакты не найдены!')
+                continue
+            else:
+                print(f'Найдены следующие контакты:\n')
+                for items in contacts_match:
+                    id, name, phone, detailes = items
+                    print(f'ID {id} Имя: {name} Телефон: {phone} Описание: {detailes}') 
+                continue
     elif menu_item == 6:
             phonebook = chage_contact(phonebook)
             continue
