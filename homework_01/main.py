@@ -43,19 +43,22 @@ def save_db(phonebook):
 #
 
 def list_contacts(phone_list):
-    for item in phone_list[1:]:
+    for item in phone_list:
         id, name, phone, details = item
         print(f'№{id} Имя: {name} Телефон: {phone} Описание: {details} ')
 
 def new_contact(phone_list):
     new_cont_list = []
-    for item in range(3):
-        name = input('Введите имя: ')
-        phone = input('Введите телефон: ')
-        detail = input('Введите описание: ')
+    name = input('Введите имя: ')
+    phone = input('Введите телефон: ')
+    detail = input('Введите описание: ')
     new_cont_list = [len(phone_list), name, phone, detail]
-    phone_list_udated = phone_list.append(new_cont_list)
-    return phone_list_udated
+    phone_list.append(new_cont_list)
+    # print(phone_list)
+    # print(new_cont_list)
+    print('Новый контакт добавлен')
+    # print(phone_list_udated)
+    return phone_list
 
 def find_contact(phone_list):
     pass
