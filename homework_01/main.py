@@ -1,19 +1,19 @@
 import csv
 from pathlib import Path
 import os
-
-db_file = Path('./homework_01/data/database.csv')
-# print(db_file)
-
 #
 #Открытие и сохранение
 #
 def open_db():
     phonebook = []
+    db_file = Path('./homework_01/data/database.csv')
+    # print(os.path.isfile(db_file))
     with open(db_file, 'r', encoding='UTF-8') as data_file:
         csv_reader = csv.reader(data_file, delimiter=';')
         for row in csv_reader:
+            # print(row)
             phonebook.append(row)
+    # print(phonebook)
     return phonebook
 
 def save_db():
@@ -31,7 +31,14 @@ def list_contacts(phone_list):
         print(f'№{id} Имя: {name} Телефон: {phone} Описание: {details} ')
 
 def new_contact(phone_list):
-    pass
+    new_cont_list = []
+    for item in range(3):
+        name = input('Введите имя: ')
+        phone = input('Введите телефон: ')
+        detail = input('Введите описание: ')
+    new_cont_list = [len(phone_list), name, phone, detail]
+    phone_list_udated = phone_list.append(new_cont_list)
+    return phone_list_udated
 
 def find_contact(phone_list):
     pass
@@ -60,50 +67,33 @@ def input_menu_item(): # Ввод пункта меню
             return menu_item
     # return menu_item
 #
-# Load and Save
-#
-def load_save_func(menu_item):
-    if menu_item == 1:
-        phonebook = open_db()
-        print('Справочник загружен. Выберите новый пункт меню:\n')
-        # print(phonebook)
-        # print(open_db())
-        return phonebook 
-    elif menu_item == 2:
-        save_db()
-        print('Справочник сохранен. Выберите новый пункт меню:\n')
-   
-
-
-
-
-#
 # Анализ навигвции по введенным пунктам
 #  
 def analys_choisen_item(menu_item, phonebook):
     phone_list = phonebook
-    if menu_item == 3:
-        print(phone_list)
-        if phone_list == []:
-            print('Справочник пуст! Закрузине справочник или внесите контакты.')
-            # menu_item = input_menu_item()
-        else:
-            list_contacts(phone_list)
+    # if menu_item == 3:
+    #     print(phone_list)
+    #     if phone_list == []:
+    #         print('Справочник пуст! Закрузине справочник или внесите контакты.')
+    #         # menu_item = input_menu_item()
+    #     else:
+    #         list_contacts(phone_list)
         # print('Выберите новый пункт меню:\n')
         # menu_item = input_menu_item()
-    elif menu_item == 4:
-        new_contact(phone_list)
+    # elif menu_item == 4:
+    #     updated_phone_list = new_contact(phone_list)
+    #     return updated_phone_list
         # print('Выберите новый пункт меню:\n')
         # menu_item = input_menu_item()
-    elif menu_item == 5:
+    if menu_item == 5:
         find_contact(phone_list)
         # print('Выберите новый пункт меню:\n')
         # menu_item = input_menu_item()
-    elif menu_item == 6:
+    if menu_item == 6:
         chage_contact(phone_list)
         # print('Выберите новый пункт меню:\n')
         # menu_item = input_menu_item()
-    elif menu_item == 7:
+    if menu_item == 7:
         delete_contact(phone_list)
         # print('Выберите новый пункт меню:\n')
         # menu_item = input_menu_item()
@@ -136,13 +126,23 @@ while True:
     if menu_item == 0:
         print('Работа завершена! Пока!\n')
         break
+
+    elif menu_item == 1:
+            # print('Начало загрузки')
+            phonebook = open_db()
+            # print(phonebook)
+    elif menu_item == 2:
+            save_db()
+    elif menu_item == 3:
+            if phonebook == []:
+                print('Справочник пуст! Закрузине справочник или внесите контакты.')
+            # menu_item = input_menu_item()
+            else:
+                list_contacts(phonebook)
+    elif menu_item == 4:
+            phonebook = new_contact(phonebook)
+            continue
     else:
-        if menu_item == 1:
-            phonebook = load_save_func(menu_item)
-            print(phonebook)
-        if menu_item == 1:
-            load_save_func(menu_item)
-        else:
             analys_choisen_item(menu_item, phonebook)
 
 
