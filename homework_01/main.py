@@ -103,15 +103,14 @@ def delete_contact(phone_list: list) -> list:
 
 def input_menu_item() -> int:
     '''Ввод пункта меню'''
-    while True:
-        menu: str = input('>>>')
+    menu: str = ''
+    while menu not in menu_content:
+        menu = input('>>>')
         if menu not in menu_content:
             print('Введено не число.\nВыберите нужный пункт или нажмите 0 для выхода\n')
-            continue
-        else:
-            menu_item: int = int(menu)
-            print('Выбран пункт', menu_item)
-            return menu_item
+    menu_item: int = int(menu)
+    print('Выбран пункт', menu_item)
+    return menu_item
 
 menu_content: list = []
 for i in range(8):
@@ -148,37 +147,29 @@ while exit_code:
         print('Работа завершена! Пока!\n')
         exit_code = False
     elif menu_item == 1:
-            # print('Начало загрузки')
             phonebook = open_db()
-            # print(phonebook)
     elif menu_item == 2:
             save_db(phonebook)
     elif menu_item == 3:
             if phonebook == []:
                 print('Справочник пуст! Закрузине справочник или внесите контакты.')
-            # menu_item = input_menu_item()
             else:
                 list_contacts(phonebook)
     elif menu_item == 4:
             phonebook = new_contact(phonebook)
-            continue
     elif menu_item == 5:
             contacts_match = find_contact(phonebook)
             if contacts_match == []:
                 print('Контакты не найдены!')
-                continue
             else:
                 print(f'Найдены следующие контакты:\n')
                 for items in contacts_match:
                     id, name, phone, detailes = items
                     print(f'ID {id} Имя: {name} Телефон: {phone} Описание: {detailes}') 
-                continue
     elif menu_item == 6:
             phonebook = chage_contact(phonebook)
-            continue
     elif menu_item == 7:
             phonebook = delete_contact(phonebook)
-            continue
     else:
             print('Выбранного пункта не существует! Повторите ввод, используйте цифры от 0 до 7')
 
