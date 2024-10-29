@@ -5,12 +5,12 @@ from string import ascii_lowercase
 import re
 
 
-db_file = Path('./homework_01/data/database.csv') # Путь к БД
+db_file: Path = Path('./homework_01/data/database.csv') # Путь к БД
 
 
-def open_db():
+def open_db() -> list:
     '''Функция открытия телефонного справочника'''
-    phonebook = []
+    global phonebook
     with open(db_file, 'r', encoding='UTF-8') as data_file:
         csv_reader = csv.reader(data_file, delimiter=';')
         for row in csv_reader:
@@ -38,16 +38,16 @@ def save_db(phonebook: list):
                 csv_writer.writerows(phonebook) 
  
 
-def list_contacts(phone_list: list):
+def list_contacts(phone_list: list) -> list:
     '''Отобразить текущий телефонный справочник'''
     for item in phone_list:
         id, name, phone, details = item
         print(f'№{id} Имя: {name} Телефон: {phone} Описание: {details} ')
 
 
-def new_contact(phone_list: list):
+def new_contact(phone_list: list) -> list:
     '''Добавить новый контакт'''
-    new_cont_list = []
+    new_cont_list: list = []
     name = input('Введите имя: ')
     phone = input('Введите телефон: ')
     detail = input('Введите описание: ')
@@ -57,9 +57,9 @@ def new_contact(phone_list: list):
     return phone_list
 
 
-def find_contact(phone_list: list):
+def find_contact(phone_list: list) -> list:
     '''Найти контакт по имени или телефону'''
-    matched_contacts = []
+    matched_contacts: list = []
     search_string = input('Что будем искать? Введите данные: ')
     for items in phone_list:
         id, name, phone, detailes = items
@@ -72,7 +72,7 @@ def find_contact(phone_list: list):
     return matched_contacts
 
 
-def chage_contact(phone_list: list):
+def chage_contact(phone_list: list) -> list:
     '''Изменить контакт выбрав его по ID'''
     id_for_change = input('Введите ID контакта для изменения: ')
     try:
@@ -89,7 +89,7 @@ def chage_contact(phone_list: list):
     return phone_list    
 
 
-def delete_contact(phone_list: list):
+def delete_contact(phone_list: list) -> list:
     '''Удалить контакт'''
     id_for_delete = input('Введите ID контакта для удаления: ')
     try:
@@ -101,22 +101,21 @@ def delete_contact(phone_list: list):
     return phone_list
 
 
-menu_content = []
-for i in range(8):
-    menu_content.append(str(i))
-
-
-def input_menu_item():
+def input_menu_item() -> int:
     '''Ввод пункта меню'''
     while True:
-        menu = input('>>>')
+        menu: str = input('>>>')
         if menu not in menu_content:
             print('Введено не число.\nВыберите нужный пункт или нажмите 0 для выхода\n')
             continue
         else:
-            menu_item = int(menu)
+            menu_item: int = int(menu)
             print('Выбран пункт', menu_item)
             return menu_item
+
+menu_content: list = []
+for i in range(8):
+    menu_content.append(str(i))
 
 
 #
@@ -139,14 +138,15 @@ print('''
     ''')
 
 
-phonebook = []
+phonebook: list = []
+exit_code: bool = True
 
 
-while True:
+while exit_code:
     menu_item = input_menu_item()
     if menu_item == 0:
         print('Работа завершена! Пока!\n')
-        break
+        exit_code = False
     elif menu_item == 1:
             # print('Начало загрузки')
             phonebook = open_db()
