@@ -5,7 +5,7 @@ from string import ascii_lowercase
 import re
 
 
-db_file: Path = Path('./homework_01/data/database.csv') # Путь к БД
+db_file: Path = Path('./homework_01/data/database.csv')  # Путь к БД
 
 
 def open_db() -> list:
@@ -26,17 +26,19 @@ def save_db(phonebook: list):
                Все дынные будут удалены!!!
                Вы хотите подолжить?
                ''')
-        answer = input('Введите Y- для продолжения и любой другой символ для отмены: ')
+        answer: str = input(
+            'Введите Y- для продолжения и любой другой символ для отмены: ')
         if answer.lower == 'y':
             print('Данные стираюся!!!')
             with open(db_file, 'w', encoding='UTF-8') as data_file:
-                csv_writer = csv.writer(data_file, delimiter=';',lineterminator='\n')
+                csv_writer = csv.writer(
+                    data_file, delimiter=';', lineterminator='\n')
                 csv_writer.writerows(phonebook)
     print('Адресная книга сохранена!')
     with open(db_file, 'w', encoding='UTF-8') as data_file:
-                csv_writer = csv.writer(data_file, delimiter=';',lineterminator='\n')
-                csv_writer.writerows(phonebook) 
- 
+        csv_writer = csv.writer(data_file, delimiter=';', lineterminator='\n')
+        csv_writer.writerows(phonebook)
+
 
 def list_contacts(phone_list: list) -> list:
     '''Отобразить текущий телефонный справочник'''
@@ -80,13 +82,15 @@ def chage_contact(phone_list: list) -> list:
         name = input('Введите имя: ')
         phone = input('Введите телефон: ')
         detail = input('Введите описание: ')
-        print(f'Контакт ID {id_for_change} Имя: {phone_list[id_for_change][1]} изменен')
+        print(f'Контакт ID {id_for_change} Имя: {
+              phone_list[id_for_change][1]} изменен')
         print('Новые несенные данные:')
-        print(f'Контакт ID {id_for_change} Имя: {name} Номер: {phone} Описание: {detail}')
+        print(f'Контакт ID {id_for_change} Имя: {
+              name} Номер: {phone} Описание: {detail}')
         phone_list[id_for_change] = [id_for_change, name, phone, detail]
     except:
         print('Введен неправильный ID.')
-    return phone_list    
+    return phone_list
 
 
 def delete_contact(phone_list: list) -> list:
@@ -111,6 +115,7 @@ def input_menu_item() -> int:
     menu_item: int = int(menu)
     print('Выбран пункт', menu_item)
     return menu_item
+
 
 menu_content: list = []
 for i in range(8):
@@ -147,29 +152,30 @@ while exit_code:
         print('Работа завершена! Пока!\n')
         exit_code = False
     elif menu_item == 1:
-            phonebook = open_db()
+        phonebook = open_db()
     elif menu_item == 2:
-            save_db(phonebook)
+        save_db(phonebook)
     elif menu_item == 3:
-            if phonebook == []:
-                print('Справочник пуст! Закрузине справочник или внесите контакты.')
-            else:
-                list_contacts(phonebook)
+        if phonebook == []:
+            print('Справочник пуст! Закрузине справочник или внесите контакты.')
+        else:
+            list_contacts(phonebook)
     elif menu_item == 4:
-            phonebook = new_contact(phonebook)
+        phonebook = new_contact(phonebook)
     elif menu_item == 5:
-            contacts_match = find_contact(phonebook)
-            if contacts_match == []:
-                print('Контакты не найдены!')
-            else:
-                print(f'Найдены следующие контакты:\n')
-                for items in contacts_match:
-                    id, name, phone, detailes = items
-                    print(f'ID {id} Имя: {name} Телефон: {phone} Описание: {detailes}') 
+        contacts_match = find_contact(phonebook)
+        if contacts_match == []:
+            print('Контакты не найдены!')
+        else:
+            print(f'Найдены следующие контакты:\n')
+            for items in contacts_match:
+                id, name, phone, detailes = items
+                print(f'ID {id} Имя: {name} Телефон: {
+                      phone} Описание: {detailes}')
     elif menu_item == 6:
-            phonebook = chage_contact(phonebook)
+        phonebook = chage_contact(phonebook)
     elif menu_item == 7:
-            phonebook = delete_contact(phonebook)
+        phonebook = delete_contact(phonebook)
     else:
-            print('Выбранного пункта не существует! Повторите ввод, используйте цифры от 0 до 7')
-
+        print(
+            'Выбранного пункта не существует! Повторите ввод, используйте цифры от 0 до 7')
