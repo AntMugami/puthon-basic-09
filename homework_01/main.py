@@ -84,7 +84,7 @@ def chage_contact(phone_list: list) -> list:
         detail = input('Введите описание: ')
         print(f'Контакт ID {id_for_change} Имя: {
               phone_list[id_for_change][1]} изменен')
-        print('Новые несенные данные:')
+        print('Новые внесенные данные:')
         print(f'Контакт ID {id_for_change} Имя: {
               name} Номер: {phone} Описание: {detail}')
         phone_list[id_for_change] = [id_for_change, name, phone, detail]
