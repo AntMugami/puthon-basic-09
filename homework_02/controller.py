@@ -20,19 +20,46 @@ def start():
         user_choice = _user_input()
         if user_choice == '1':
             phonebook.open()
+            view.print_message(prompts_ru.open_successful)
         if user_choice == '2':
-            print('Сохранить файл')
+            phonebook.save()
+            view.print_message(prompts_ru.save_successful)
         if user_choice == '3':
             view.show_contact_list(
                 phonebook.show_contacts(), prompts_ru.empty_phonebook_error)
         if user_choice == '4':
-            print('Создать контакт')
+            contact = view.user_input_contact(
+                prompts_ru.new_contact_message, prompts_ru.new_contact_prompts)
+            phonebook.add_new_contact(contact)
+            view.print_message(prompts_ru.contact_added_succsesfuly)
         if user_choice == '5':
-            print('Найти контакт')
+            search_string = view.user_input(prompts_ru.input_seach_string)
+            matched_contacts = phonebook.find_contact(search_string)
+            view.search_rez(matched_contacts)
+
         if user_choice == '6':
-            print('Изменить контакт')
+            id_to_change = view.user_input(prompts_ru.input_id_to_change)
+            check_id = phonebook.id_in_list(id_to_change)
+
+            if check_id:
+                contact = view.user_input_contact(
+                    prompts_ru.new_contact_message, prompts_ru.new_contact_prompts)
+                phonebook.change_contact(id_to_change, contact)
+                view.print_message(
+                    prompts_ru.change_contact(id_to_change, contact))
+            else:
+                view.print_message(prompts_ru.err_id)
         if user_choice == '7':
-            print('Удалить контакт')
+            id_to_delete = view.user_input(prompts_ru.input_id_to_change)
+            check_id = phonebook.id_in_list(id_to_delete)
+
+            if check_id:
+                phonebook.delete_contact(id_to_delete)
+                view.print_message(
+                    prompts_ru.delete_contact(id_to_delete))
+            else:
+                view.print_message(prompts_ru.err_id)
+
         if user_choice == '8':
             view.programm_exit()
             break

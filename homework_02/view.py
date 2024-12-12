@@ -13,7 +13,7 @@ def print_main_menu():
 
 def user_input(message: str) -> str:
     '''Поучение данных от пользователя'''
-    return input(message)
+    return input(message).strip()
 
 
 def user_menu_choice():
@@ -48,3 +48,13 @@ def show_contact_list(contact_list: dict[str, str], mess_error: str) -> None:
                                  } {item['phone']} {item['comment']}")
     else:
         print_message(mess_error)
+
+
+def search_rez(matched_contacts: list[str]):
+    if matched_contacts:
+        for row in matched_contacts:
+            print(f"'Имя: '{row[0]} 'Телефон: '{
+                  row[1]}")
+
+    else:
+        print_message(prompts_ru.contacts_not_found)
