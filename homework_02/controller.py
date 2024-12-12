@@ -6,16 +6,23 @@ PATH = './homework_02/phonebook.csv'
 
 
 def _user_input():
-    while True:
+    '''Выбор пункта меню'''
+    user_data = None
+    while user_data != '0':
         user_data, len_menu = view.user_menu_choice()
         if model.check_user_input(user_data, len_menu):
             return user_data
         view.print_message(prompts_ru.main_menu_err_item(int(len_menu) - 1))
 
 
+view.programm_exit()
+
+
 def start():
+    '''Проверка пунктов меню'''
+    user_choice = None
     phonebook = model.PhoneBook(PATH)
-    while True:
+    while user_choice != '0':
         view.print_main_menu()
         user_choice = _user_input()
         if user_choice == '1':
@@ -59,7 +66,8 @@ def start():
                     prompts_ru.delete_contact(id_to_delete))
             else:
                 view.print_message(prompts_ru.err_id)
-
         if user_choice == '8':
             view.programm_exit()
             break
+    if user_choice == '0':
+        view.programm_exit()

@@ -17,7 +17,7 @@ def user_input(message: str) -> str:
 
 
 def user_menu_choice():
-    return user_input(prompts_ru.main_menu_choice), len(prompts_ru.main_menu)
+    return user_input(prompts_ru.main_menu_choice).lower(), len(prompts_ru.main_menu)
 
 
 def user_input_contact(input_message: str, contact_fields: list[str]) -> list[str]:

@@ -3,7 +3,7 @@ from collections import namedtuple
 
 
 def check_user_input(user_data: str, len_menu: int) -> bool:
-    if user_data.isdigit() and (0 < int(user_data) < len_menu):
+    if user_data.isdigit() and (0 <= int(user_data) < len_menu):
         return True
     return False
 
