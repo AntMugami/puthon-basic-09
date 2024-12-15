@@ -2,7 +2,7 @@ import view
 import model
 import prompts_ru
 
-PATH = './homework_02/phonebook.csv'
+PATH = './homework_03/phonebook.csv'
 
 
 def _user_input():
