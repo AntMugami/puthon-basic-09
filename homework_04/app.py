@@ -30,6 +30,7 @@ from fastapi.templating import Jinja2Templates
 
 
 books = []
+about_me = []
 
 
 class Books(BaseModel):
@@ -37,6 +38,12 @@ class Books(BaseModel):
     author: str
     name: str
     rank: Optional[int] = None
+
+class DevInfo(BaseModel):
+    name: str
+    whoami: str
+    info: str
+    email: str
 
 books.append(Books(id_=1, author = 'Питерс Стив', name = 'Парадокс Шимпанзе. Как управлять эмоциями для достижения своих целей'))
 books.append(Books(id_=2, author = 'Келен Оливье, Блете Мари-Алис', name = 'Разработка приложений на базе GPT-4 и ChatGPT. 2-е изд.'))
@@ -46,10 +53,7 @@ books.append(Books(id_=5, author = 'Джон Галбрейт', name = 'Сете
 books.append(Books(id_=6, author = 'Гастон Хиллар', name = 'Django RESTFul Web Services', rank = 7))
 
 
-dev_info = ('''Студент группы Python Developer. Basic 2024 09
-            Шелудяк Антон
-            Руководитель ИТ подразделений, MBA, CCNP'''
-            )
+about_me.append(DevInfo(name = 'Шелудяк Антон', whoami = 'Студент группы Python Developer. Basic 2024 09', info = 'Infrastructure TeamLead, CIO, MBA, CCNP', email = 'a.shelydyak@gmail.com'))
 
 
 app = FastAPI()
@@ -61,17 +65,17 @@ router = APIRouter(prefix='/api', tags=['Список книг для чтени
 
 @app.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "message": "Добро пожаловать!!", 'title': 'Главная', "books": books})
+    return templates.TemplateResponse("index.html", {"request": request, "message": "Список книг для чтения", 'title': 'Главная', "books": books})
 
 
-@app.get("/about/")
-async def name_func():
-    return {"message": dev_info}
+@app.get("/about/", response_class=HTMLResponse)
+async def about_func(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request, "message": "Информация обо мне", 'title': 'Информация о разработчике', "about_me": about_me})
 
 
 @app.get("/api/", response_class=HTMLResponse)
 async def all_books(request: Request):
-    return templates.TemplateResponse("books.html", {"request": request, "books": books, 'title': 'Книги'})
+    return templates.TemplateResponse("index.html", {"request": request, "message": "Список книг для чтения", "books": books, 'title': 'Книги для чтения'})
 
 
 @app.get("/books/{id_}")

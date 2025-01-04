@@ -5,18 +5,25 @@
 {% block content %}
 <div class="container mt-5">
     <h2>{{ message }}</h2>
-    <form>
-        <div class="mb-3">
-            <label for="name" class="form-label">Имя</label>
-            <input type="text" class="form-control" id="name" placeholder="Введите ваше имя">
-        </div>
-        <div class="mb-3">
-            <label for="email" class="form-label">Email адрес</label>
-            <input type="email" class="form-control" id="email" placeholder="name@example.com">
-        </div>
-        <button type="submit" class="btn btn-primary">Отправить</button>
-    </form>
+    <table style="width:100%">
+      <tr>
+        <th>№</th>
+        <th>Автор(ы)</th>
+        <th>Книга</th>
+        <th>Рейтинг</th>
+      </tr>
+      {% for book in books %}
+      <tr>
+        <td>{{ book.id_ }}</td>
+        <td>{{ book.author }}</td>
+        <td>{{ book.name }}</td>
+        <td>{{ book.rank }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+
 </div>
-    </div>
+
 
 {% endblock %}

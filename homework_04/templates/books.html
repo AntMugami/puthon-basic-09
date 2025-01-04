@@ -10,17 +10,17 @@
             <div class="col-md-4">
                 <div class="card mb-4">
                     <div class="card-body">
-                        <h5 class="card-title">{{ books.name }}</h5>
-                        <p class="card-text"><strong>Автор:</strong> {{ books.author }}</p>
+                        <h5 class="card-title">{{ book.name }}</h5>
+                        <p class="card-text"><strong>Автор:</strong> {{ book.author }}</p>
 
                         <p class="card-text">
                             <strong>Рейтинг:</strong>
                             {% if book.rank> 7.0 %}
-                                <span class="text-success"> {{ books.rank }} </span>
+                                <span class="text-success"> {{ book.rank }} </span>
                             {% elif movie.rating < 5.0 %}
-                                <span class="text-warning"> {{ books.rank }} </span>
+                                <span class="text-warning"> {{ book.rank }} </span>
                             {% else %}
-                                {{ books.rank }}
+                                {{ book.rank }}
                             {% endif %}
                             </p>
                         <a href="http://127.0.0.1:8000/books/{{ book.id }}" class="btn btn-primary">Подробнее</a>
