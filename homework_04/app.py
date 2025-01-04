@@ -69,9 +69,10 @@ async def name_func():
     return {"message": dev_info}
 
 
-@app.get("/api/")
-async def all_books():
-    return {"books": books}
+@app.get("/api/", response_class=HTMLResponse)
+async def all_books(request: Request):
+    return templates.TemplateResponse("books.html", {"request": request, "books": books, 'title': 'Книги'})
+
 
 @app.get("/books/{id_}")
 async def get_books_genre(id_: int):
