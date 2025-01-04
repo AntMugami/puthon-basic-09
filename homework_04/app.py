@@ -21,10 +21,13 @@
   - добавьте представление для создания сущности
 """
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Request
 from fastapi import FastAPI
 from pydantic import BaseModel
 from typing import Optional
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
+
 
 books = []
 
@@ -50,14 +53,15 @@ dev_info = ('''Студент группы Python Developer. Basic 2024 09
 
 
 app = FastAPI()
+templates = Jinja2Templates(directory="templates")
 
 
 router = APIRouter(prefix='/api', tags=['Список книг для чтения'])
 
 
-@app.get("/")
-async def index():
-    return {"books": books}
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request, "message": "Добро пожаловать!!", 'title': 'Главная', "books": books})
 
 
 @app.get("/about/")
