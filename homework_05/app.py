@@ -20,7 +20,6 @@
   - добавьте представление для чтения сущности
   - добавьте представление для создания сущности
 """
-
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from views import router
@@ -29,6 +28,7 @@ from views import router
 
 
 app = FastAPI()
+
 
 app.include_router(router)
 app.mount("/static", StaticFiles(directory="static"), name="static")

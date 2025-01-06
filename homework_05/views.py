@@ -46,9 +46,14 @@ async def about_func(request: Request):
     return templates.TemplateResponse("about.html", {"request": request, "message": "Информация обо мне", 'title': 'Информация о разработчике', "about_me": about_me})
 
 
-@router.get("/api/", response_class=HTMLResponse)
+@router.get("/api/")
 async def all_books(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "message": "Список книг для чтения", "books": books, 'title': 'Книги для чтения'})
+    return {"books": books}
+
+
+@router.get("/ping/")
+async def check_ping(request: Request):
+    return {"message": "pong"}
 
 
 @router.get("/api/books/{id_}")
