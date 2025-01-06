@@ -43,7 +43,8 @@ Dockerfile создан
 from fastapi import FastAPI
 from starlette.staticfiles import StaticFiles
 from views import router
-
+import uvicorn
+import logging
 
 
 
