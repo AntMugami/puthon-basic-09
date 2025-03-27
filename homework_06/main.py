@@ -1,26 +1,37 @@
-"""
-Домашнее задание №4
-Асинхронная работа с сетью и бд
+from jsonplaceholder_requests import async_get_users, async_get_posts
+import asyncio
+from models import User, Post, init_db, async_session, close_db
+from typing import List, Dict
 
-доработайте функцию main, по вызову которой будет выполняться полный цикл программы
-(добавьте туда выполнение асинхронной функции async_main):
-- создание таблиц (инициализация)
-- загрузка пользователей и постов
-    - загрузка пользователей и постов должна выполняться конкурентно (параллельно)
-      при помощи asyncio.gather (https://docs.python.org/3/library/asyncio-task.html#running-tasks-concurrently)
-- добавление пользователей и постов в базу данных
-  (используйте полученные из запроса данные, передайте их в функцию для добавления в БД)
-- закрытие соединения с БД
-"""
+async def create_users_in_db(users_data: List[Dict]) -> None:
+    async with async_session() as session:
+        users = [User(**user_data) for user_data in users_data]
+        session.add_all(users)
+        await session.commit()
 
+async def create_posts_in_db(posts_data: List[Dict]) -> None:
+    async with async_session() as session:
+        posts = [Post(**post_data) for post_data in posts_data]
+        session.add_all(posts)
+        await session.commit()
 
 async def async_main():
-    pass
+    await init_db()
+    users: List[Dict]
+    posts: List[Dict]
+    posts, users = await asyncio.gather(
+        async_get_posts(),
+        async_get_users(),
+    )
 
+    await asyncio.gather(
+        create_users_in_db(users),
+        create_posts_in_db(posts),
+    )
+    await close_db()
 
 def main():
-    pass
-
+    asyncio.run(async_main())
 
 if __name__ == "__main__":
     main()
