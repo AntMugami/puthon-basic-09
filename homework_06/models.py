@@ -3,6 +3,7 @@ from sqlalchemy.orm import sessionmaker, declarative_base, relationship
 from sqlalchemy import Column, Integer, String, ForeignKey, JSON
 from typing import Dict
 
+
 PG_CONN_URI = "postgresql+asyncpg://postgres:postgres@localhost/postgres"
 
 engine = create_async_engine(PG_CONN_URI, echo=True)
