@@ -25,6 +25,16 @@ def get_users(db: async_session):
     return db.query(User).all
 
 
+def get_post(db: async_session):
+    return db.query(Post).filter(Post.id == post_id).first()
+
+def create_post(db: async_session, post: PostCreate, author_id: User.id):
+    db_post = Post(**post.dict(), author_id=author_id)
+    db.add(db_post)
+    db.commit()
+    db.refresh(db_post)
+    return db_post
+
 
 
 
