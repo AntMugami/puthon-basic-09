@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>{{ message }}</h1>
+    <div class="card" style="width: 18rem;">
+    <img src="/static/images/devphoto.jpeg" class="card-img-top" alt="DevPhoto">
+    </div>
+    <div class="card-body">
+        {% for dev in about_me %}
+          <p>{{ dev.name }}</p>
+          <p>{{ dev.whoami }}</p>
+          <p>{{ dev.info }}</p>
+          <p>{{ dev.email }}</p>
+         {% endfor %}
+  </div>
+</div>
+
+
+{% endblock %}
