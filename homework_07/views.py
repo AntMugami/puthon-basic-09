@@ -38,7 +38,12 @@ templates = Jinja2Templates(directory="templates")
 
 @router.get("/", response_class=HTMLResponse)
 async def index(request: Request):
-    return templates.TemplateResponse("index.html", {"request": request, "message": "Список книг для чтения", 'title': 'Главная', "books": books})
+    return templates.TemplateResponse("index.html", {"request": request, "message": "Список постов", 'title': 'Посты', "books": books})
+
+
+@router.get("/users", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request, "message": "Список пользователей", 'title': 'Пользователи', "books": books})
 
 
 @router.get("/about/", response_class=HTMLResponse)

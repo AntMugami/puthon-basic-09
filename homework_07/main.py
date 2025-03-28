@@ -2,6 +2,31 @@ from jsonplaceholder_requests import async_get_users, async_get_posts
 import asyncio
 from models import User, Post, init_db, async_session, close_db
 from typing import List, Dict
+from fastapi import FastAPI
+from starlette.staticfiles import StaticFiles
+from views import router
+import uvicorn
+import logging
+
+app = FastAPI()
+
+
+app.include_router(router)
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
+logger = logging.getLogger(__name__)
+
+
+__all__ = [
+    "app",
+]
+
+def get_users(db: async_session):
+    return db.query(User).all
+
+
+
+
 
 async def create_users_in_db(users_data: List[Dict]) -> None:
     async with async_session() as session:
@@ -32,6 +57,10 @@ async def async_main():
 
 def main():
     asyncio.run(async_main())
+    logging.basicConfig(filename='myapp.log', level=logging.INFO)
+    logger.info('Started')
+    uvicorn.run("app:app", host='0.0.0.0', port=8000)
+    logger.info('Finished')
 
 if __name__ == "__main__":
     main()
